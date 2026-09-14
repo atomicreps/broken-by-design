@@ -46,6 +46,21 @@ The free plan gives you three questions a day in the agent, at the first
 difficulty of each topic. There is more broken in here than three questions
 covers, which is rather the point.
 
+### What the wizard is actually asking
+
+`setup` asks which areas you want. That choice **orders** what you get, it does
+not fence it. If your session touched SQL, you get SQL questions whether or not
+you ticked Data. The areas decide what comes first when one session touched
+several things, and what you get when there is nothing useful to go on.
+
+Worth knowing here, because this repo spans seven areas on purpose: Frontend,
+Backend, Data & Analytics, Testing & Quality, Security, DevOps & Infrastructure,
+and Design & UI. Ticking only Frontend will not stop a Postgres question
+arriving after you fix the slow query. If you want a topic gone rather than deprioritised, mute it: tell the
+agent "never Terraform" and it stays gone.
+
+You can skip the wizard entirely. The defaults are fine for this.
+
 ## The twelve things
 
 Each one below is a symptom you can see for yourself, and a prompt you can
