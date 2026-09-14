@@ -199,3 +199,52 @@ header.masthead p {
   color: var(--ink-soft);
   font-size: 13px;
 }
+
+.search {
+  position: relative;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.search input {
+  width: 100%;
+}
+
+.search-results {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(28, 29, 33, 0.1);
+  overflow: hidden;
+}
+
+.search-hit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.search-hit:last-child {
+  border-bottom: none;
+}
+
+.search-hit:hover {
+  background: #fbfaf8;
+}
+
+.search-hit-subject {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

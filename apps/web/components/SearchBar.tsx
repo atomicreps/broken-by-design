@@ -32,7 +32,7 @@ export function SearchBar() {
   }
 
   return (
-    <>
+    <div className="search">
       <input
         type="search"
         placeholder="Search tickets"
@@ -40,8 +40,15 @@ export function SearchBar() {
         onChange={onChange}
       />
       {hits.length > 0 ? (
-        <span className="ticket-meta">{hits.length} matches</span>
+        <div className="search-results">
+          {hits.slice(0, 10).map((hit) => (
+            <a className="search-hit" key={hit.id} href={`/tickets/${hit.id}`}>
+              <span className="search-hit-subject">{hit.subject}</span>
+              <span className={`badge badge-${hit.status}`}>{hit.status}</span>
+            </a>
+          ))}
+        </div>
       ) : null}
-    </>
+    </div>
   );
 }
