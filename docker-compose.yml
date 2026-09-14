@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: desk
+      POSTGRES_PASSWORD: desk
+      POSTGRES_DB: supportdesk
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d:ro
+      - desk-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U desk -d supportdesk"]
+      interval: 3s
+      timeout: 3s
+      retries: 30
+
+  api:
+    build: ./services/api
+    environment:
+      DATABASE_URL: postgresql://desk:desk@db:5432/supportdesk
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/api:/srv
+    depends_on:
+      db:
+        condition: service_healthy
+
+  web:
+    build: ./apps/web
+    environment:
+      API_BASE_URL: http://api:8000
+      NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+      WATCHPACK_POLLING: "true"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web:/app
+      - desk-web-modules:/app/node_modules
+      - desk-web-next:/app/.next
+    depends_on:
+      - api
+
+volumes:
+  desk-pgdata:
+  desk-web-modules:
+  desk-web-next:
